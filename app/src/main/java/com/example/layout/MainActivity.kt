@@ -4,22 +4,12 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.layout.ui.theme.LayoutTheme
-import com.example.layout.ui.theme.poppinFonts
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,11 +17,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             LayoutTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android", modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                AppNavigation()
             }
         }
     }
@@ -46,33 +32,60 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Column {
-        Image(
-            painter = painterResource(id = R.drawable.welcome_image),
-            contentDescription = "Welcome Image",
-        )
-        Text(
-            text = "Discover Your Dream Job here",
-            fontFamily = poppinFonts,
-            fontSize = 35.sp,
-            fontWeight = FontWeight.SemiBold,
-            modifier = modifier
-        )
-        Text(
-            text = "Explore all the existing job roles based on your interest and study major",
-            fontFamily = poppinFonts,
-            fontSize = 14.sp,
-            fontWeight = FontWeight.SemiBold,
-            modifier = modifier
-        )
-    }
-}
+fun AppNavigation() {
+    val navController = rememberNavController()
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    LayoutTheme {
-        Greeting("Android")
+    NavHost(
+        navController = navController,
+        startDestination = "welcome"
+    ) {
+        composable("welcome") {
+            WelcomeScreen(
+                onLoginClick = {
+                    navController.navigate("login")
+                },
+                onRegisterClick = {
+                    navController.navigate("register")
+                }
+            )
+        }
+
+        composable("login") {
+            LoginScreen(
+                onSignInClick = {
+                    navController.navigate("welcome")
+                },
+                onForgotPasswordClick = {
+                    // TODO: Implementar pantalla de recuperar contraseña
+                },
+                onCreateAccountClick = {
+                    navController.navigate("register")
+                },
+                onGoogleClick = { },
+                onFacebookClick = { },
+                onAppleClick = { }
+            )
+        }
+
+        composable("register") {
+            RegisterScreen(
+                onSignUpClick = {
+                    navController.navigate("welcome")
+                },
+                onAlreadyHaveAccountClick = {
+                    navController.navigate("login")
+                },
+                onGoogleClick = { },
+                onFacebookClick = { },
+                onAppleClick = { }
+            )
+        }
     }
 }
+    @Preview(showBackground = true, showSystemUi = true)
+    @Composable
+    fun AppNavigationPreview() {
+        LayoutTheme {
+            AppNavigation()
+        }
+    }
