@@ -36,7 +36,7 @@ fun SocialButtons(
             onClick = onGoogleClick
         )
 
-        Spacer(modifier = Modifier.width(10.dp))
+        Spacer(modifier = Modifier.width(8.dp))
 
         // Botón Facebook
         SocialButton(
@@ -45,7 +45,7 @@ fun SocialButtons(
             onClick = onFacebookClick
         )
 
-        Spacer(modifier = Modifier.width(10.dp))
+        Spacer(modifier = Modifier.width(8.dp))
 
         // Botón Apple
         SocialButton(
