@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.sp
 import com.example.layout.components.AuthButton
 import com.example.layout.components.ContinueWithSection
 import com.example.layout.components.LoginTextField
+import com.example.layout.components.ScreenTitle
 import com.example.layout.components.TextLink
 import com.example.layout.ui.theme.*
 
@@ -40,67 +41,59 @@ fun LoginScreen(
             .padding(horizontal = 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // ============ TÍTULO "Login here" ============
+        // ============ TÍTULO + SUBTÍTULO ============
         Spacer(modifier = Modifier.height(97.dp))
 
-        Text(
-            text = stringResource(R.string.login_title),
-            modifier = Modifier
-                .width(160.dp)
-                .height(45.dp),
-            fontSize = 30.sp,
-            fontWeight = FontWeight.Bold,
-            fontFamily = poppinFonts,
-            color = PrimaryBlue,
-            textAlign = TextAlign.Center
+        // Título "Login here"
+        ScreenTitle(
+            title = stringResource(R.string.login_title),
+            subtitle = stringResource(R.string.login_subtitle)
         )
 
-        // ============ SUBTÍTULO ============
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(60.dp))
 
-        Text(
-            text = stringResource(R.string.login_subtitle),
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Normal,
-            fontFamily = poppinFonts,
-            color = TextBlack,
-            textAlign = TextAlign.Center
-        )
+        // ============ EMAIL + PASSWORD BOX ============
+        Column(
+            modifier = Modifier,
+            verticalArrangement = Arrangement.spacedBy(25.dp)
+        ) {
+            // Email Input
+            LoginTextField(
+                value = email,
+                onValueChange = { email = it },
+                placeholder = "Email",
+                showBorder = true,
+                modifier = Modifier
+                    .width(357.dp)
+                    .height(64.dp)
+            )
 
-        // ============ EMAIL INPUT ============
-        LoginTextField(
-            value = email,
-            onValueChange = { email = it },
-            placeholder = "Email",
-            showBorder = true,
-            modifier = Modifier
-                .width(357.dp)
-                .padding(horizontal = 20.dp)
-        )
-
-// ============ PASSWORD INPUT ============
-        Spacer(modifier = Modifier.height(24.dp))
-
-        LoginTextField(
-            value = password,
-            onValueChange = { password = it },
-            placeholder = "Password",
-            isPassword = true,
-            showBorder = false,
-            modifier = Modifier
-                .width(357.dp)
-                .padding(horizontal = 20.dp)
-        )
+            // Password Input
+            LoginTextField(
+                value = password,
+                onValueChange = { password = it },
+                placeholder = "Password",
+                isPassword = true,
+                showBorder = false,
+                modifier = Modifier
+                    .width(357.dp)
+                    .height(64.dp)
+            )
+        }
 
         // ============ "FORGOT YOUR PASSWORD?" ============
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(30.dp))
 
-        TextLink(
-            text = stringResource(R.string.login_forgot_password),
-            color = PrimaryBlue,
-            onClick = onForgotPasswordClick,
-            modifier = Modifier.fillMaxWidth()
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.End
+        ) {
+            TextLink(
+                text = stringResource(R.string.login_forgot_password),
+                color = PrimaryBlue,
+                onClick = onForgotPasswordClick
+            )
+        }
 
         // ============ BOTÓN "SIGN IN" ============
         Spacer(modifier = Modifier.height(32.dp))
@@ -111,7 +104,7 @@ fun LoginScreen(
         )
 
         // ============ "CREATE NEW ACCOUNT" ============
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(30.dp))
 
         TextLink(
             text = stringResource(R.string.create_account),
@@ -120,7 +113,7 @@ fun LoginScreen(
         )
 
         // ============ "OR CONTINUE WITH" + BOTONES SOCIALES ============
-        Spacer(modifier = Modifier.height(50.dp))
+        Spacer(modifier = Modifier.height(100.dp))
 
         ContinueWithSection(
             onGoogleClick = onGoogleClick,

@@ -72,7 +72,7 @@ fun SocialButton(
         Image(
             painter = painterResource(drawableId),
             contentDescription = contentDescription,
-            modifier = Modifier.size(32.dp)
+            modifier = Modifier.size(100.dp)
         )
     }
 }
