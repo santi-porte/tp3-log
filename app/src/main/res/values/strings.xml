@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Layout</string>
+    <string name="welcome_title">Discover Your Dream Job here</string>
+    <string name="welcome_subtitle">Explore all the existing job roles based on your interest and study major</string>
+    <string name="btn_login">Login</string>
+    <string name="btn_register">Register</string>
+    <string name="login_title">Login here</string>
+    <string name="login_subtitle">Welcome back you\'ve\n been missed!</string>
+    <string name="login_forgot_password">Forgot your password?</string>
+    <string name="btn_sign_in">Sign in</string>
+    <string name="create_account">Create new account</string>
+    <string name="continue_with">Or continue with</string>
 </resources>

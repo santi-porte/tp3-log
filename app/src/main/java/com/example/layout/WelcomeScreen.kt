@@ -2,8 +2,6 @@ package com.example.layout
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
@@ -23,6 +21,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.res.stringResource
 import com.example.layout.ui.theme.poppinFonts
 import com.example.layout.ui.theme.PrimaryBlue
 import com.example.layout.ui.theme.TextBlack
@@ -31,29 +30,27 @@ import com.example.layout.ui.theme.ShadowBlue
 
 @Composable
 fun WelcomeScreen(
-    onLoginClick: () -> Unit = {},      // ← Callback cuando se toca Login
-    onRegisterClick: () -> Unit = {}    // ← Callback cuando se toca Register
+    onLoginClick: () -> Unit = {},
+    onRegisterClick: () -> Unit = {}
 ) {
     Column(
         modifier = Modifier
-            .fillMaxSize()                      // Ocupa toda la pantalla
-            .verticalScroll(rememberScrollState()) // Scrolleable si necesita
-            .background(Color.White),           // Fondo blanco
-        horizontalAlignment = Alignment.CenterHorizontally  // Centrado horizontalmente
+            .fillMaxSize()
+            .background(Color.White),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         // ============ IMAGEN ============
-        // La imagen: 385px width, 422px height, radius 20px
         Box(
             modifier = Modifier
-                .width(385.dp)                  // Ancho fijo
-                .height(422.dp)                 // Alto fijo
+                .width(385.dp)
+                .height(422.dp)
                 .padding(
-                    top = 16.dp,                // Espacio desde arriba
-                    start = 22.dp,              // Espacio desde izquierda
-                    end = 11.dp                 // Espacio desde derecha
+                    top = 16.dp,
+                    start = 22.dp,
+                    end = 11.dp
                 )
-                .clip(RoundedCornerShape(20.dp))  // ← Radio 20px
-                .background(Color.LightGray)    // Placeholder mientras cargas imagen
+                .clip(RoundedCornerShape(20.dp))
+                .background(Color.White)
         ) {
             Image(
                 painter = painterResource(id = R.drawable.welcome_image),
@@ -71,98 +68,98 @@ fun WelcomeScreen(
         }
 
         // ============ ESPACIADOR ============
-        Spacer(modifier = Modifier.height(74.dp))  // Gap entre imagen y título
+        Spacer(modifier = Modifier.height(74.dp))
 
         // ============ TÍTULO "Discover Your Dream Job here" ============
         Text(
-            text = "Discover Your\nDream Job here",
+            text = stringResource(R.string.welcome_title),
             modifier = Modifier
-                .width(343.dp)                  // Ancho del texto
-                .padding(top = 496.dp - 422.dp - 16.dp)  // Posición absoluta convertida a relativa
+                .width(343.dp)
                 .align(Alignment.CenterHorizontally),
-            fontSize = 35.sp,                   // 35px
-            fontWeight = FontWeight.SemiBold,   // 600 = SemiBold
+            fontSize = 35.sp,
+            fontWeight = FontWeight.SemiBold,
             fontFamily = poppinFonts,
-            color = PrimaryBlue,                // Azul #1F41BB
-            textAlign = TextAlign.Center        // Centrado
+            color = PrimaryBlue,
+            textAlign = TextAlign.Center,
+            lineHeight = 42.sp
         )
+
 
         // ============ ESPACIADOR ============
         Spacer(modifier = Modifier.height(40.dp))
 
         // ============ SUBTÍTULO "Explore all..." ============
         Text(
-            text = "Explore all the existing job roles based on your interest and study major",
+            text = stringResource(R.string.welcome_subtitle),
             modifier = Modifier
                 .width(323.dp)
                 .align(Alignment.CenterHorizontally),
-            fontSize = 14.sp,                   // 14px
-            fontWeight = FontWeight.Normal,     // 400 = Regular
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Normal,
             fontFamily = poppinFonts,
-            color = TextBlack,                  // Negro #0A0A0A
+            color = TextBlack,
             textAlign = TextAlign.Center
         )
 
         // ============ ESPACIADOR ============
-        Spacer(modifier = Modifier.height(113.dp))  // Gap hacia botones
+        Spacer(modifier = Modifier.height(113.dp))
 
         // ============ ROW DE BOTONES ============
         Row(
             modifier = Modifier
-                .width(350.dp)                  // Ancho total
-                .height(60.dp)
-                .padding(start = 39.dp, end = 39.dp),  // Left 39px, Right 39px
-            horizontalArrangement = Arrangement.spacedBy(30.dp)  // Gap 30px entre botones
+                .width(350.dp)
+                .height(60.dp),
+            horizontalArrangement = Arrangement.spacedBy(30.dp)
         ) {
             // -------- BOTÓN LOGIN --------
             Button(
-                onClick = onLoginClick,         // Navega a Login Screen
+                onClick = onLoginClick,
                 modifier = Modifier
-                    .width(160.dp)              // Ancho fijo
-                    .height(60.dp)              // Alto
-                    .clip(RoundedCornerShape(10.dp))  // Radio 10px
+                    .width(160.dp)
+                    .height(60.dp)
+                    .clip(RoundedCornerShape(10.dp))
                     .shadow(
-                        elevation = 20.dp,      // Blur 20px
+                        elevation = 20.dp,
                         shape = RoundedCornerShape(10.dp),
                         ambientColor = ShadowBlue
                     ),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = PrimaryBlue // Fondo azul
+                    containerColor = PrimaryBlue
                 ),
                 shape = RoundedCornerShape(10.dp)
             ) {
                 Text(
-                    text = "Login",
-                    fontSize = 20.sp,           // 20px
-                    fontWeight = FontWeight.SemiBold,  // 600
+                    text = stringResource(R.string.btn_login),
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.SemiBold,
                     fontFamily = poppinFonts,
-                    color = TextWhite           // Texto blanco
+                    color = TextWhite
                 )
             }
 
             // -------- BOTÓN REGISTER --------
             OutlinedButton(
-                onClick = onRegisterClick,      // Navega a Register Screen
+                onClick = onRegisterClick,
                 modifier = Modifier
                     .width(160.dp)
                     .height(60.dp)
                     .clip(RoundedCornerShape(10.dp)),
                 colors = ButtonDefaults.outlinedButtonColors(
-                    containerColor = Color.White,  // Fondo blanco
-                    contentColor = TextBlack        // Texto negro
+                    containerColor = Color.White,
+                    contentColor = TextBlack
                 ),
-                border = BorderStroke(1.dp, TextBlack)  // Border negro 1px
+                border = BorderStroke(0.dp, Color.Transparent)
             ) {
                 Text(
-                    text = "Register",
+                    text = stringResource(R.string.btn_register),
                     fontSize = 20.sp,
                     fontWeight = FontWeight.SemiBold,
                     fontFamily = poppinFonts,
-                    color = TextBlack            // Texto negro
+                    color = TextBlack
                 )
             }
         }
 
-        Spacer(modifier = Modifier.height(50.dp))  // Space al final
+        Spacer(modifier = Modifier.height(50.dp))
     }
 }

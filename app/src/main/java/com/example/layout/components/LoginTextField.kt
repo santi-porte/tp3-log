@@ -25,6 +25,7 @@ fun LoginTextField(
     onValueChange: (String) -> Unit,
     placeholder: String,
     isPassword: Boolean = false,
+    showBorder: Boolean = true,  // ← NUEVO parámetro
     modifier: Modifier = Modifier
 ) {
     OutlinedTextField(
@@ -45,8 +46,8 @@ fun LoginTextField(
         colors = OutlinedTextFieldDefaults.colors(
             unfocusedContainerColor = InputBackground,
             focusedContainerColor = InputBackground,
-            unfocusedBorderColor = PrimaryBlue,
-            focusedBorderColor = PrimaryBlue
+            unfocusedBorderColor = if (showBorder) PrimaryBlue else Color.Transparent,  // ← MODIFICADO
+            focusedBorderColor = if (showBorder) PrimaryBlue else Color.Transparent     // ← MODIFICADO
         ),
         visualTransformation = if (isPassword) PasswordVisualTransformation() else VisualTransformation.None,
         textStyle = TextStyle(

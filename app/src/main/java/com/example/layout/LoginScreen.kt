@@ -5,21 +5,21 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.*
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.res.stringResource
+import com.example.layout.components.AuthButton
+import com.example.layout.components.ContinueWithSection
+import com.example.layout.components.TextLink
 import com.example.layout.ui.theme.*
 
-// ============ PANTALLA: LoginScreen ============
 @Composable
 fun LoginScreen(
     onSignInClick: () -> Unit = {},
@@ -44,12 +44,12 @@ fun LoginScreen(
         Spacer(modifier = Modifier.height(97.dp))
 
         Text(
-            text = "Login here",
+            text = stringResource(R.string.login_title),
             modifier = Modifier
                 .width(160.dp)
                 .height(45.dp),
             fontSize = 30.sp,
-            fontWeight = FontWeight.Bold,  // 700 = Bold
+            fontWeight = FontWeight.Bold,
             fontFamily = poppinFonts,
             color = PrimaryBlue,
             textAlign = TextAlign.Center
@@ -59,7 +59,7 @@ fun LoginScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         Text(
-            text = "Welcome back you've\nbeen missed!",
+            text = stringResource(R.string.login_subtitle),
             fontSize = 16.sp,
             fontWeight = FontWeight.Normal,
             fontFamily = poppinFonts,
@@ -68,18 +68,17 @@ fun LoginScreen(
         )
 
         // ============ EMAIL INPUT ============
-        Spacer(modifier = Modifier.height(40.dp))
-
         LoginTextField(
             value = email,
             onValueChange = { email = it },
             placeholder = "Email",
+            showBorder = true,
             modifier = Modifier
                 .width(357.dp)
                 .padding(horizontal = 20.dp)
         )
 
-        // ============ PASSWORD INPUT ============
+// ============ PASSWORD INPUT ============
         Spacer(modifier = Modifier.height(24.dp))
 
         LoginTextField(
@@ -87,6 +86,7 @@ fun LoginScreen(
             onValueChange = { password = it },
             placeholder = "Password",
             isPassword = true,
+            showBorder = false,
             modifier = Modifier
                 .width(357.dp)
                 .padding(horizontal = 20.dp)
@@ -95,144 +95,38 @@ fun LoginScreen(
         // ============ "FORGOT YOUR PASSWORD?" ============
         Spacer(modifier = Modifier.height(20.dp))
 
-        TextButton(
+        TextLink(
+            text = stringResource(R.string.login_forgot_password),
+            color = PrimaryBlue,
             onClick = onForgotPasswordClick,
-            modifier = Modifier
-                .width(163.dp)
-                .height(21.dp)
-        ) {
-            Text(
-                text = "Forgot your password?",
-                fontSize = 14.sp,
-                fontWeight = FontWeight.SemiBold,
-                fontFamily = poppinFonts,
-                color = PrimaryBlue,
-                textAlign = TextAlign.Center
-            )
-        }
+            modifier = Modifier.fillMaxWidth()
+        )
 
         // ============ BOTÓN "SIGN IN" ============
         Spacer(modifier = Modifier.height(32.dp))
 
-        Button(
-            onClick = onSignInClick,
-            modifier = Modifier
-                .width(357.dp)
-                .height(60.dp)
-                .clip(RoundedCornerShape(10.dp))
-                .shadow(
-                    elevation = 20.dp,
-                    shape = RoundedCornerShape(10.dp),
-                    ambientColor = ShadowBlue
-                ),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = PrimaryBlue
-            ),
-            shape = RoundedCornerShape(10.dp)
-        ) {
-            Text(
-                text = "Sign in",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.SemiBold,
-                fontFamily = poppinFonts,
-                color = TextWhite
-            )
-        }
+        AuthButton(
+            text = stringResource(R.string.btn_sign_in),
+            onClick = onSignInClick
+        )
 
         // ============ "CREATE NEW ACCOUNT" ============
         Spacer(modifier = Modifier.height(24.dp))
 
-        TextButton(
-            onClick = onCreateAccountClick,
-            modifier = Modifier
-                .width(145.dp)
-                .height(21.dp)
-        ) {
-            Text(
-                text = "Create new account",
-                fontSize = 14.sp,
-                fontWeight = FontWeight.SemiBold,
-                fontFamily = poppinFonts,
-                color = TextGray,
-                textAlign = TextAlign.Center
-            )
-        }
-
-        // ============ "OR CONTINUE WITH" ============
-        Spacer(modifier = Modifier.height(24.dp))
-
-        Text(
-            text = "Or continue with",
-            fontSize = 14.sp,
-            fontWeight = FontWeight.SemiBold,
-            fontFamily = poppinFonts,
-            color = PrimaryBlue,
-            textAlign = TextAlign.Center
+        TextLink(
+            text = stringResource(R.string.create_account),
+            color = TextGray,
+            onClick = onCreateAccountClick
         )
 
-        // ============ BOTONES SOCIALES ============
-        Spacer(modifier = Modifier.height(16.dp))
+        // ============ "OR CONTINUE WITH" + BOTONES SOCIALES ============
+        Spacer(modifier = Modifier.height(50.dp))
 
-        Row(
-            modifier = Modifier
-                .width(200.dp)
-                .height(44.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            // Botón Google
-            Button(
-                onClick = onGoogleClick,
-                modifier = Modifier
-                    .size(60.dp)
-                    .clip(RoundedCornerShape(10.dp)),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFFECECEC)
-                )
-            ) {
-                Text(
-                    text = "G",
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = TextBlack
-                )
-            }
-
-            // Botón Facebook
-            Button(
-                onClick = onFacebookClick,
-                modifier = Modifier
-                    .size(60.dp)
-                    .clip(RoundedCornerShape(10.dp)),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFFECECEC)
-                )
-            ) {
-                Text(
-                    text = "f",
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = TextBlack
-                )
-            }
-
-            // Botón Apple
-            Button(
-                onClick = onAppleClick,
-                modifier = Modifier
-                    .size(60.dp)
-                    .clip(RoundedCornerShape(10.dp)),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFFECECEC)
-                )
-            ) {
-                Text(
-                    text = "🍎",
-                    fontSize = 20.sp,
-                    color = TextBlack
-                )
-            }
-        }
+        ContinueWithSection(
+            onGoogleClick = onGoogleClick,
+            onFacebookClick = onFacebookClick,
+            onAppleClick = onAppleClick
+        )
 
         Spacer(modifier = Modifier.height(50.dp))
     }
